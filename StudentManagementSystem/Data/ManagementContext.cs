@@ -12,8 +12,10 @@ namespace StudentManagementSystem.Data
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<Teacher>()
-                .HasMany<Lecture>();
+            modelBuilder.Entity<Lecture>()
+                .HasOne(l => l.lecturer)
+                .WithMany(t => t.lectures);
+                
                 
             ManyToManyRelationshipConfiguration(modelBuilder);
         }
@@ -36,9 +38,9 @@ namespace StudentManagementSystem.Data
 
             public DbSet<Student> students { get; set; }
             public DbSet<Lecture> lectures { get; set; }
-            public DbSet<Teacher> teachers;
+            public DbSet<Teacher> teachers { get; set; }
             public DbSet<Student_has_lectures> student_Has_Lectures{ get; set; }
             
     }
-    }
+    
 }
