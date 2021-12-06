@@ -27,12 +27,14 @@ namespace StudentManagementSystem.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("classroom_code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("lecture_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("lecturerId")
+                    b.Property<int>("lecturerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -59,10 +61,15 @@ namespace StudentManagementSystem.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("first_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("last_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("school_number")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -95,9 +102,11 @@ namespace StudentManagementSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("first_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("last_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -109,7 +118,9 @@ namespace StudentManagementSystem.Migrations
                 {
                     b.HasOne("StudentManagementSystem.Models.Teacher", "lecturer")
                         .WithMany("lectures")
-                        .HasForeignKey("lecturerId");
+                        .HasForeignKey("lecturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("lecturer");
                 });

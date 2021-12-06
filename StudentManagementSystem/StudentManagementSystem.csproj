@@ -12,11 +12,17 @@
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
+    <None Remove="Views\Student\" />
+    <None Remove="Views\Teacher\" />
+    <None Remove="Views\Lecture\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Data\" />
+    <Folder Include="Views\Student\" />
+    <Folder Include="Views\Teacher\" />
+    <Folder Include="Views\Lecture\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.12" />
