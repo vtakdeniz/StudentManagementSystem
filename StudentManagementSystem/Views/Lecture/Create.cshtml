@@ -33,7 +33,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                             <label for="dropdown">Teachers</label>
                             <select asp-for="teacher_id" asp-items="@(new SelectList((List<Teacher>)ViewBag.teachers, nameof(Teacher.Id), nameof(Teacher.first_name)))">
-                                <option>Please select one</option>  
+                                <optgroup label="Please select one teacher"></optgroup>
                             </select>
                         </div>
                     </div>

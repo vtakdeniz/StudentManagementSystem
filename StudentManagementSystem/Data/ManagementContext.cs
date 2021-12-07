@@ -20,19 +20,24 @@ namespace StudentManagementSystem.Data
             ManyToManyRelationshipConfiguration(modelBuilder);
         }
 
-        private void ManyToManyRelationshipConfiguration(ModelBuilder modelBuilder) {
+        private void ManyToManyRelationshipConfiguration(ModelBuilder modelBuilder)
+        {
+
             modelBuilder.Entity<Student_has_lectures>().
                 HasKey(t => new { t.student_id, t.lecture_id });
+
+
+            modelBuilder.Entity<Student_has_lectures>()
+                .HasOne(sh => sh.lecture)
+                .WithMany(st => st.lecture_Has_Students)
+                .HasForeignKey(st => st.lecture_id);
 
             modelBuilder.Entity<Student_has_lectures>()
                 .HasOne(sh => sh.student)
                 .WithMany(st => st.student_Has_Lectures)
                 .HasForeignKey(st => st.student_id);
 
-            modelBuilder.Entity<Student_has_lectures>()
-                .HasOne(sh => sh.lecture)
-                .WithMany(st => st.lecture_Has_Students)
-                .HasForeignKey(st => st.lecture_id);
+
         }
 
 
