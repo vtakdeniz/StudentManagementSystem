@@ -28,7 +28,10 @@
                         Classroom Code
                     </th>
                     <th>
-                        Lecturer 
+                        Lecturer
+                    </th>
+                    <th>
+                        Lecture year
                     </th>
                     <th></th>
                 </tr>
@@ -45,6 +48,9 @@
                     </td>
                     <td width="50%">
                         @obj.lecturer.first_name &nbsp; @obj.lecturer.last_name
+                    </td>
+                    <td width="50%">
+                        @obj.lecture_year
                     </td>
                     <td>
                         <div class="w-75 btn-group" role="group">

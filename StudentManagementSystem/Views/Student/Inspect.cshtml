@@ -119,7 +119,7 @@
                                 </div>
                             </form>
                         </td>
-                       
+
                     </tr>
                 }
             </tbody>
@@ -134,13 +134,13 @@
     }
     @if (TempData["isAddingTrue"] != null && (bool)TempData["isAddingTrue"] == true)
     {
-        if (ViewBag.lectures != null&&((List<Lecture>)ViewBag.lectures).Count()>0)
+        if (ViewBag.lectures != null && ((List<Lecture>)ViewBag.lectures).Count() > 0)
         {
             <form method="post" asp-action="AddLectureToStudent">
                 <input asp-for="Id" hidden />
                 <label for="dropdown">Teachers</label>
                 <select asp-for="lecture_id" asp-items="@(new SelectList((List<Lecture>)ViewBag.lectures, nameof(Lecture.Id), nameof(Lecture.lecture_name)))">
-                    <optgroup label="Please select one lecture" ></optgroup>
+                    <optgroup label="Please select one lecture"></optgroup>
                 </select>
                 <div class="col">
                     <input type="submit" class="btn btn-info w-100" value="Add" />
@@ -155,6 +155,10 @@
     }
     else
     {
+        @if (TempData["isStudentYearMismatches"] != null && (bool)TempData["isStudentYearMismatches"] == true)
+        {
+            <span class="text-danger">Student's class year is smaller than lecture's year.</span><br /><br />
+        }
         <div class="col-6">
             <a asp-action="AddClassInspect" asp-route-Id="@Model.Id" class="btn btn-primary">
                 <i class="fas fa-plus"></i> &nbsp;Add lecture to student

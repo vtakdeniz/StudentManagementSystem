@@ -39,7 +39,7 @@ namespace StudentManagementSystem.Controllers
             var teachers = _db.teachers.ToList();
             ViewBag.teachers = teachers;
 
-            Lecture lecture= new Lecture { lecture_name=createLectureDto.lecture_name,classroom_code=createLectureDto.classroom_code};
+            Lecture lecture= new Lecture { lecture_name=createLectureDto.lecture_name,classroom_code=createLectureDto.classroom_code,lecture_year=createLectureDto.lecture_year};
             var teacher = _db.teachers.FirstOrDefault(te=>te.Id==createLectureDto.teacher_id);
             
             if (teacher==null) {
@@ -79,7 +79,7 @@ namespace StudentManagementSystem.Controllers
             {
                 return NotFound();
             }
-            var lectureDto = new LectureViewModel { lecture_name = lecture.lecture_name, classroom_code = lecture.classroom_code, teacher_id = lecture.lecturer.Id };
+            var lectureDto = new LectureViewModel { lecture_name = lecture.lecture_name, classroom_code = lecture.classroom_code, teacher_id = lecture.lecturer.Id, lecture_year = lecture.lecture_year };
             return View(lectureDto);
         }
 

@@ -161,10 +161,14 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
         
-        var student = _db.students.Include(st => st.student_Has_Lectures).ThenInclude(sh => sh.lecture).ThenInclude(le => le.lecturer).FirstOrDefault(st => st.Id == inspectStudentViewModel.Id);
+            var student = _db.students.Include(st => st.student_Has_Lectures).ThenInclude(sh => sh.lecture).ThenInclude(le => le.lecturer).FirstOrDefault(st => st.Id == inspectStudentViewModel.Id);
             var lecture = _db.lectures.FirstOrDefault(le => le.Id == inspectStudentViewModel.lecture_id);
             if (lecture == null) {
                 return NotFound();
+            }
+            if (lecture.lecture_year > student.class_year) {
+                TempData["isStudentYearMismatches"] = true;
+                return RedirectToAction("Inspect",new { id=student.Id});
             }
             foreach (var element in student.student_Has_Lectures)
             {

@@ -30,6 +30,17 @@
 
                 <div class="form-group row">
                     <div class="col-4">
+                        <label asp-for="lecture_year"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="lecture_year" class="form-control" />
+                        <span asp-validation-for="lecture_year" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                             <label for="dropdown">Teachers</label>
                             <select asp-for="teacher_id" asp-items="@(new SelectList((List<Teacher>)ViewBag.teachers, nameof(Teacher.Id), nameof(Teacher.first_name)))">
@@ -40,7 +51,7 @@
 
                 </div>
 
-                
+
                 @if (TempData["isClassroomCodeDuplicate"] != null && (bool)TempData["isClassroomCodeDuplicate"] == true)
                 {
                     <span class="text-danger">Classroom with the same class code already exists!</span><br><br>

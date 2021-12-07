@@ -18,6 +18,9 @@ namespace StudentManagementSystem.Models
         [Required]
         [DisplayName("Teacher Name")]
         public Teacher lecturer { get; set; }
+
+        public int lecture_year { get; set; }
+
         public List<Student_has_lectures> lecture_Has_Students { get; set; }
     }
 }
