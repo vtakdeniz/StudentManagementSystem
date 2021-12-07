@@ -15,6 +15,7 @@
     <None Remove="Views\Student\" />
     <None Remove="Views\Teacher\" />
     <None Remove="Views\Lecture\" />
+    <None Remove="Dto\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -23,6 +24,7 @@
     <Folder Include="Views\Student\" />
     <Folder Include="Views\Teacher\" />
     <Folder Include="Views\Lecture\" />
+    <Folder Include="Dto\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.12" />

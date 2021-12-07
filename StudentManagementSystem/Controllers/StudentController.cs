@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -34,7 +35,7 @@ namespace StudentManagementSystem.Controllers
             if (ModelState.IsValid) {
 
                 if (_db.students.FirstOrDefault(st => st.school_number == student.school_number) != null) {
-                    TempData["isSchoolNumberDuplicate"] = true;
+                    TempData["isSchoolNumberDuplicate"] = true; 
                     return View(student);
                 }
 

@@ -1,9 +1,9 @@
-﻿@model StudentManagementSystem.Models.Student
+﻿@model StudentManagementSystem.Models.Teacher
 
 <form method="post" asp-action="Edit">
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info pl-3">Edit a Student</h2>
+            <h2 class="text-info pl-3">Edit a Teacher</h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -37,40 +37,6 @@
                     </div>
 
                 </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="enrollment_date"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="enrollment_date" class="form-control" />
-                        <span asp-validation-for="enrollment_date" class="text-danger"></span>
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="class_year"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="class_year" class="form-control" />
-                        <span asp-validation-for="class_year" class="text-danger"></span>
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="school_number"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="school_number" class="form-control" />
-                        <span asp-validation-for="school_number" class="text-danger"></span>
-                    </div>
-
-                </div>
-                @if (TempData["isSchoolNumberDuplicate"] != null && (bool)TempData["isSchoolNumberDuplicate"] == true)
-                {
-                    <span class="text-danger">Student with a same school number already exists!</span><br><br>
-                }
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
 

@@ -5,78 +5,126 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
+using Microsoft.EntityFrameworkCore;
+using StudentManagementSystem.Dto;
 
 namespace StudentManagementSystem.Controllers
 {
-    public class LectureContoller:Controller
+    public class LectureController : Controller
     {
         private readonly ManagementContext _db;
 
-        public LectureContoller(ManagementContext db)
+        public LectureController(ManagementContext db)
         {
             _db = db;
         }
 
-        public IActionResult Index() {
-            List<Student> students = _db.students.ToList();
-            return View(students);
+        public IActionResult Index()
+        {
+            List<Lecture> lectures = _db.lectures.Include(le => le.lecturer).ToList();
+            return View(lectures);
         }
 
         public IActionResult Create()
         {
+            var teachers = _db.teachers.ToList();
+            ViewBag.teachers = teachers;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Lecture lecture)
+        public IActionResult Create(LectureViewModel createLectureDto)
         {
-            if (ModelState.IsValid) {
+            var teachers = _db.teachers.ToList();
+            ViewBag.teachers = teachers;
 
-                if (_db.lectures.FirstOrDefault(le => le.classroom_code == lecture.classroom_code) != null) {
+            Lecture lecture= new Lecture { lecture_name=createLectureDto.lecture_name,classroom_code=createLectureDto.classroom_code};
+            var teacher = _db.teachers.FirstOrDefault(te=>te.Id==createLectureDto.teacher_id);
+            
+            if (teacher==null) {
+                return NotFound();
+            }
+
+            lecture.lecturer = teacher;
+
+            if (ModelState.IsValid)
+            {
+
+                if (_db.lectures.FirstOrDefault(le => le.classroom_code == lecture.classroom_code) != null)
+                {
                     TempData["isClassroomCodeDuplicate"] = true;
-                    return View(lecture);
+                    return View(createLectureDto);
                 }
-
+                
                 _db.lectures.Add(lecture);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(lecture);
+            return View(createLectureDto);
         }
 
         public IActionResult Edit(int? id)
         {
-            if (id == null || id == 0) {
+            var teachers = _db.teachers.ToList();
+            ViewBag.teachers = teachers;
+
+            if (id == null || id == 0)
+            {
                 return NotFound();
             }
-            var lecture = _db.students.FirstOrDefault(le => le.Id == id);
-            if (lecture == null) {
+            TempData["editLectureId"] = id;
+            var lecture = _db.lectures.Include(le=>le.lecturer).FirstOrDefault(st => st.Id == id);
+            if (lecture == null)
+            {
                 return NotFound();
             }
-            return View(lecture);
+            var lectureDto = new LectureViewModel { lecture_name = lecture.lecture_name, classroom_code = lecture.classroom_code, teacher_id = lecture.lecturer.Id };
+            return View(lectureDto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Lecture lecture)
+        public IActionResult Edit(LectureViewModel lectureDto)
         {
-            if (ModelState.IsValid) {
+            var teachers = _db.teachers.ToList();
+            ViewBag.teachers = teachers;
+
+            if (_db.lectures.FirstOrDefault(le => le.classroom_code == lectureDto.classroom_code) != null)
+            {
+                TempData["isClassroomCodeDuplicate"] = true;
+                return View(lectureDto);
+            }
+
+            int id =(int)TempData["editLectureId"];
+            var lecture=_db.lectures.Find(id);
+            lecture.classroom_code = lectureDto.classroom_code;
+            lecture.lecture_name = lectureDto.lecture_name;
+
+            var teacher = _db.teachers.FirstOrDefault(te => te.Id == lectureDto.teacher_id);
+            if (teacher == null) {
+                return NotFound();
+            }
+            lecture.lecturer = teacher;
+            if (ModelState.IsValid)
+            {
                 _db.lectures.Update(lecture);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(lecture);
+            return View(lectureDto);
         }
 
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0) {
+            if (id == null || id == 0)
+            {
                 return NotFound();
             }
 
-            var lecture = _db.lectures.FirstOrDefault(le => le.Id == id);
-            if (lecture == null) {
+            var lecture = _db.lectures.FirstOrDefault(st => st.Id == id);
+            if (lecture == null)
+            {
                 return NotFound();
             }
             return View(lecture);
@@ -84,10 +132,12 @@ namespace StudentManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteLecture(int? id) {
-            var lecture = _db.lectures.FirstOrDefault(le=>le.Id==id);
+        public IActionResult DeleteLecture(int? id)
+        {
+            var lecture = _db.lectures.FirstOrDefault(st => st.Id == id);
 
-            if (lecture == null) {
+            if (lecture == null)
+            {
                 return NotFound();
             }
             _db.lectures.Remove(lecture);

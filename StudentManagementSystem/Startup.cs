@@ -24,8 +24,9 @@ namespace StudentManagementSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ManagementContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("StudentManagementConnection")));
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDbContext<ManagementContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("StudentManagementConnection")));
             //services.AddControllersWithViews();
         }
 

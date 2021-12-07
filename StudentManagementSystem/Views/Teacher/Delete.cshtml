@@ -1,21 +1,12 @@
-﻿@model StudentManagementSystem.Models.Student
-<form method="post" asp-action="DeleteStudent">
+﻿@model StudentManagementSystem.Models.Teacher
+<form method="post" asp-action="DeleteTeacher">
     <input asp-for="Id" hidden />
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info pl-3">Delete a Student</h2>
+            <h2 class="text-info pl-3">Delete a Teacher</h2>
         </div>
         <div class="row">
             <div class="col-8">
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="school_number"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="school_number" disabled class="form-control" />
-                    </div>
-
-                </div>
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="first_name"></label>
@@ -27,28 +18,19 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
+                        <label asp-for="last_name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="last_name" disabled class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
                         <label asp-for="age"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="age" disabled class="form-control" />
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="class_year"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="class_year" disabled class="form-control" />
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="enrollment_date"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="enrollment_date" disabled class="form-control" />
                     </div>
 
                 </div>

@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using StudentManagementSystem.Models;
 
-namespace StudentManagementSystem.Models
+namespace StudentManagementSystem.Dto
 {
-    public class Lecture
+    public class LectureViewModel
     {
-        [Key]
-        public int Id { get; set; }
+
         [Required]
         [DisplayName("Lecture Name")]
         public string lecture_name { get; set; }
         [Required]
         [DisplayName("Classroom Code")]
         public string classroom_code { get; set; }
-        [Required]
-        [DisplayName("Teacher Name")]
-        public Teacher lecturer { get; set; }
-        public List<Student_has_lectures> lecture_Has_Students { get; set; }
+
+        public int teacher_id { get; set; }
+
+
     }
 }
