@@ -18,6 +18,7 @@ namespace StudentManagementSystem.Dto
 
         public int teacher_id { get; set; }
 
+        [DisplayName("Lecture Year")]
         public int lecture_year { get; set; }
 
     }

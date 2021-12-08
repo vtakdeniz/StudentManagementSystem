@@ -97,6 +97,14 @@ namespace StudentManagementSystem.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
+        public IActionResult Inspect(int? id)
+        {
+            var teacher = _db.teachers.FirstOrDefault(t=>t.Id==id);
+            var lecturesOfTeacher = _db.lectures.Where(le => le.lecturer.Id == teacher.Id).ToList();
+            ViewBag.lecturesOfTeacher = lecturesOfTeacher;
+            return View(teacher);
+        }
 
     }
 }
